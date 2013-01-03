@@ -12,6 +12,8 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int none=0x7f020001;
+        public static final int topbar=0x7f020002;
     }
     public static final class id {
         public static final int featured_list=0x7f070001;
@@ -63,8 +65,10 @@ public final class R {
          */
         public static final int AppBaseTheme=0x7f050000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f050001;
+        /**  Action bar. 
+         */
+        public static final int MyActionBar=0x7f050002;
     }
 }

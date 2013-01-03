@@ -4,13 +4,9 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.ViewGroup;
 
 import com.digiflare.ces2013.data.APIClient;
 import com.digiflare.ces2013.fragments.AssetListFragment;
@@ -49,18 +45,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		// Set up the action bar.
 		mActionBar = getActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-		// For each of the sections in the app, add a tab to the action bar.
 		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_featured).setTabListener(this));
 		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_movies).setTabListener(this));
 		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_tv).setTabListener(this));
+		
+		mActionBar.setIcon(R.drawable.none);
+		mActionBar.setDisplayShowTitleEnabled(false);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
+		// getMenuInflater().inflate(R.menu.activity_main, menu);
+		// return true;
+		return false;
 	}
 
 	@Override
