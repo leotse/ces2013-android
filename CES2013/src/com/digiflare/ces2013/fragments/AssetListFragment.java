@@ -46,13 +46,15 @@ public class AssetListFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mLayoutInflater = inflater;
-		mContainer = (View) inflater.inflate(R.layout.fragment_featured, null);
-		mContent = (LinearLayout) mContainer.findViewById(R.id.content_container);
-		mViewPager = (ViewPager) mContainer.findViewById(R.id.carousel_view_pager);
-		mGridView = (GridView) mContainer.findViewById(R.id.featured_list);
-		mProgress = (ProgressBar) mContainer.findViewById(R.id.progress);
-		populate();
+		if(null == mContainer) {
+			mLayoutInflater = inflater;
+			mContainer = (View) inflater.inflate(R.layout.fragment_featured, null);
+			mContent = (LinearLayout) mContainer.findViewById(R.id.content_container);
+			mViewPager = (ViewPager) mContainer.findViewById(R.id.carousel_view_pager);
+			mGridView = (GridView) mContainer.findViewById(R.id.featured_list);
+			mProgress = (ProgressBar) mContainer.findViewById(R.id.progress);
+			populate();
+		}
 		return mContainer;
 	}
 	
@@ -84,13 +86,12 @@ public class AssetListFragment extends Fragment {
 					JSONObject feature;
 					View view = null;
 					SmartImageView image;
-					int imageId;
-					int remainder;
-					for(int i = 0; i < features.length(); i++) {
+					int imageId, iterations;
+					
+					iterations = ((int)(features.length() / 3)) * 3;
+					for(int i = 0; i < iterations; i++) { 
 						feature = features.getJSONObject(i);
-						remainder = i % 3;
-						
-						switch(remainder) {
+						switch(i % 3) {
 							case 1:
 								imageId = R.id.featured_row_thumbnail2;
 								break;
