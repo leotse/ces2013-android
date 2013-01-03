@@ -1,10 +1,5 @@
 package com.digiflare.ces2013.fragments;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,26 +15,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.digiflare.ces2013.R;
 import com.digiflare.ces2013.data.APIClient;
+import com.digiflare.ces2013.ui.CarouselItem;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.image.SmartImageView;
 
 public class AssetListFragment extends Fragment {
 	
 	public static final String URL = "url";
-	private static final String TITLE = "title";
-	private static final String THUMBNAIL = "thumbnail";
 
 	Activity mContext;
+	LayoutInflater mLayoutInflater;
 	View mContainer;
 	GridView mGridView;
-	View mContent;
+	LinearLayout mContent;
 	ViewPager mViewPager;
 	ProgressBar mProgress;
 	JSONArray features;
@@ -47,14 +40,15 @@ public class AssetListFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mContext = getActivity();
+		mContext = getActivity();		
 	}
 	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		mLayoutInflater = inflater;
 		mContainer = (View) inflater.inflate(R.layout.fragment_featured, null);
-		mContent = (View) mContainer.findViewById(R.id.content_container);
+		mContent = (LinearLayout) mContainer.findViewById(R.id.content_container);
 		mViewPager = (ViewPager) mContainer.findViewById(R.id.carousel_view_pager);
 		mGridView = (GridView) mContainer.findViewById(R.id.featured_list);
 		mProgress = (ProgressBar) mContainer.findViewById(R.id.progress);
@@ -87,24 +81,32 @@ public class AssetListFragment extends Fragment {
 					
 					
 					// process response into something we can work with
-					List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 					JSONObject feature;
-					Map<String, String> map;
+					View view = null;
+					SmartImageView image;
+					int imageId;
+					int remainder;
 					for(int i = 0; i < features.length(); i++) {
 						feature = features.getJSONObject(i);
-						map = new HashMap<String, String>();
-						map.put(TITLE, feature.getJSONObject("title").getString("short"));
-						map.put(THUMBNAIL, getThumbnailImage(feature, 150, 200));
-						data.add(map);
+						remainder = i % 3;
+						
+						switch(remainder) {
+							case 1:
+								imageId = R.id.featured_row_thumbnail2;
+								break;
+							case 2:
+								imageId = R.id.featured_row_thumbnail3;
+								break;
+							default:
+								view = mLayoutInflater.inflate(R.layout.featured_row, null);
+								mContent.addView(view);
+								imageId = R.id.featured_row_thumbnail1;
+								break;
+						}
+						
+						image = (SmartImageView) view.findViewById(imageId);
+						image.setImageUrl(getThumbnailImage(feature, 150, 200));
 					}
-					
-					// adapter field mappings
-					String[] from = new String[] { TITLE, THUMBNAIL };
-					int[] to = new int[] { R.id.featured_row_title, R.id.featured_row_thumbnail };
-
-					// create adapter!
-					ShowAdapter listAdapter = new ShowAdapter(mContext, data, R.layout.featured_row, from, to);
-					mGridView.setAdapter(listAdapter);
 					
 					// and finally hide the indicator
 					mProgress.setVisibility(View.GONE);
@@ -155,7 +157,6 @@ public class AssetListFragment extends Fragment {
 		
 		private Context mContext;
 		private JSONArray mData;
-		private List<CarouselItem> mItems;
 
 		public CarouselAdapter(JSONArray data) {
 			super();
@@ -224,33 +225,4 @@ public class AssetListFragment extends Fragment {
 			return null;
 		}
 	}
-	
-    /**
-     * 
-     * @author leotse
-     * A special adapter to use show a movie or tv show
-     * Assumes row layout uses loopj image view
-     *
-     */
-    private class ShowAdapter extends SimpleAdapter {
-		public ShowAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
-			super(context, data, resource, from, to);
-		}
-		
-		@Override
-		public void setViewText(TextView v, String text) {
-		}
-		
-		@Override
-		public void setViewImage(ImageView v, String value) {
-			try {
-				SmartImageView image = (SmartImageView) v;
-				image.setImageDrawable(null);
-				image.setImageUrl(value);
-			} catch(ClassCastException e) {
-				System.out.println("Please use SmartViewImage in ShowAdapter layout");
-				throw e;
-			}
-		}
-    }
 }

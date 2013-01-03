@@ -1,22 +1,33 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/featured_list"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
     android:orientation="horizontal">
     
 	<com.loopj.android.image.SmartImageView
-	    android:id="@+id/featured_row_thumbnail"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_gravity="center_vertical"
+	    android:id="@+id/featured_row_thumbnail1"
+	    android:layout_width="110dp"
+	    android:layout_height="150dp"
+	    android:layout_marginTop="15dp"
+	    android:layout_alignParentLeft="true"
 	    android:scaleType="centerCrop"
 	    android:contentDescription="@string/image" />
         
-    <TextView 
-        android:id="@+id/featured_row_title"
-        android:textSize="24sp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical" />    
+	<com.loopj.android.image.SmartImageView
+	    android:id="@+id/featured_row_thumbnail2"
+	    android:layout_width="110dp"
+	    android:layout_height="150dp"
+	    android:layout_marginTop="15dp"
+	    android:layout_centerHorizontal="true"
+	    android:scaleType="centerCrop"
+	    android:contentDescription="@string/image" />
+	
+	<com.loopj.android.image.SmartImageView
+	    android:id="@+id/featured_row_thumbnail3"
+	    android:layout_width="110dp"
+	    android:layout_height="150dp"
+	    android:layout_marginTop="15dp"
+	    android:layout_alignParentRight="true"
+	    android:scaleType="centerCrop"
+	    android:contentDescription="@string/image" />
         
-</LinearLayout>
+</RelativeLayout>
