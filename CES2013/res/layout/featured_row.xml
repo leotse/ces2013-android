@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/featured_list"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal">
+    
+	<com.loopj.android.image.SmartImageView
+	    android:id="@+id/featured_row_thumbnail"
+	    android:layout_width="64dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_vertical"
+	    android:contentDescription="@string/image" />
+        
+    <TextView 
+        android:id="@+id/featured_row_title"
+        android:textSize="24sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_gravity="center_vertical" />    
+        
+</LinearLayout>
