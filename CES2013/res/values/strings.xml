@@ -3,9 +3,11 @@
 
     <string name="app_name">CES2013</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_section_featured">Featured</string>
+    <string name="title_section_featured">HOME</string>
     <string name="title_section_movies">Movies</string>
-    <string name="title_section_tv">TV Shows</string>
+    <string name="title_section_tv">Shows</string>
     <string name="image">image</string>
-
+    <string name="show_metadata">Action | 1h 54m </string>
+	<string name="related">Related</string>
+    
 </resources>

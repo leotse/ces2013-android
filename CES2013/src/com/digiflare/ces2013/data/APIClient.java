@@ -7,7 +7,7 @@ import com.loopj.android.http.RequestParams;
 public class APIClient {
 
 	private static final String BASE_URL = "http://ces2013.herokuapp.com/api";
-	public static final String FEATURED_URL = BASE_URL + "/movies?limit=10";
+	public static final String FEATURED_URL = BASE_URL + "/featured";
 	public static final String MOVIES_URL = BASE_URL + "/movies?limit=50";
 	public static final String SHOWS_URL = BASE_URL + "/tvshows?limit=50";
 	
