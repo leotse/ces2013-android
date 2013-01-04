@@ -6,9 +6,10 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="16" />
+        android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -28,7 +29,8 @@
         <activity
             android:name="com.digiflare.ces2013.DetailsActivity"
             android:label="@string/title_activity_details"
-            android:parentActivityName="com.digiflare.ces2013.MainActivity" >
+            android:parentActivityName="com.digiflare.ces2013.MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.digiflare.ces2013.MainActivity" />

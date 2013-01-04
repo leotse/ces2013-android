@@ -14,23 +14,28 @@ public final class R {
         public static final int background=0x7f020000;
         public static final int ic_launcher=0x7f020001;
         public static final int none=0x7f020002;
-        public static final int topbar=0x7f020003;
+        public static final int play=0x7f020003;
+        public static final int topbar=0x7f020004;
     }
     public static final class id {
-        public static final int caraousel_item_container=0x7f070007;
-        public static final int carousel_item_image=0x7f070008;
-        public static final int carousel_item_title=0x7f070009;
-        public static final int carousel_view_pager=0x7f07000b;
-        public static final int container=0x7f070000;
-        public static final int content_container=0x7f07000a;
-        public static final int details_text=0x7f070001;
-        public static final int featured_list=0x7f070003;
-        public static final int featured_row_thumbnail1=0x7f070004;
-        public static final int featured_row_thumbnail2=0x7f070005;
-        public static final int featured_row_thumbnail3=0x7f070006;
-        public static final int main_container=0x7f070002;
-        public static final int menu_settings=0x7f07000d;
-        public static final int progress=0x7f07000c;
+        public static final int caraousel_item_container=0x7f07000b;
+        public static final int carousel_item_image=0x7f07000c;
+        public static final int carousel_item_title=0x7f07000d;
+        public static final int carousel_view_pager=0x7f07000f;
+        public static final int content_container=0x7f07000e;
+        public static final int details_content=0x7f070000;
+        public static final int details_image=0x7f070001;
+        public static final int details_related_progress=0x7f070005;
+        public static final int details_subtitle=0x7f070003;
+        public static final int details_synopsis=0x7f070004;
+        public static final int details_title=0x7f070002;
+        public static final int featured_list=0x7f070007;
+        public static final int featured_row_thumbnail1=0x7f070008;
+        public static final int featured_row_thumbnail2=0x7f070009;
+        public static final int featured_row_thumbnail3=0x7f07000a;
+        public static final int main_container=0x7f070006;
+        public static final int menu_settings=0x7f070011;
+        public static final int progress=0x7f070010;
     }
     public static final class layout {
         public static final int activity_details=0x7f030000;
@@ -48,15 +53,11 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int hello_world=0x7f04000b;
         public static final int image=0x7f040005;
         public static final int menu_settings=0x7f040001;
         public static final int related=0x7f040007;
         public static final int show_metadata=0x7f040006;
-        public static final int title_activity_details=0x7f04000c;
-        public static final int title_section1=0x7f04000a;
-        public static final int title_section2=0x7f040009;
-        public static final int title_section3=0x7f040008;
+        public static final int title_activity_details=0x7f040008;
         public static final int title_section_featured=0x7f040002;
         public static final int title_section_movies=0x7f040003;
         public static final int title_section_tv=0x7f040004;

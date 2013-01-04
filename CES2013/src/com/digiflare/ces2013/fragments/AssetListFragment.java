@@ -5,7 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,6 +37,7 @@ public class AssetListFragment extends Fragment {
 	ViewPager mViewPager;
 	ProgressBar mProgress;
 	JSONArray features;
+	int mCurrentPage;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,24 @@ public class AssetListFragment extends Fragment {
 					// bind carousel data
 					CarouselAdapter carouselAdapter = new CarouselAdapter(features);
 					mViewPager.setAdapter(carouselAdapter);
-					
+					mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+						@Override
+						public void onPageSelected(int position) {
+							mCurrentPage = position;
+						}
+						@Override
+						public void onPageScrolled(int arg0, float arg1, int arg2) {
+						}
+						@Override
+						public void onPageScrollStateChanged(int arg0) {
+						}
+					});
+					mViewPager.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							startDetailsActivity(mCurrentPage);
+						}
+					});
 					
 					// process response into something we can work with
 					JSONObject feature;
@@ -115,15 +132,7 @@ public class AssetListFragment extends Fragment {
 							public void onClick(View image) {
 								try {
 									int position = (Integer) image.getTag();
-									JSONObject feature = features.getJSONObject(position);
-									
-									// show details view
-									Intent intent = new Intent(getActivity(), DetailsActivity.class);
-									intent.putExtra(DetailsActivity.EXTRA_SHOW, feature.toString());
-									startActivity(intent);
-									
-								} catch(JSONException e){
-									System.out.println("========== Something weird happen on image click ==========");
+									startDetailsActivity(position);
 								} catch(ClassCastException e) {
 									System.out.println("========== Something weird happen on image click ==========");
 								}
@@ -150,6 +159,21 @@ public class AssetListFragment extends Fragment {
 				System.out.println("========== End Network Error! ==========");
 			}
 		});
+	}
+	
+	// helper method to show details of the asset item at the given position
+	private void startDetailsActivity(int position) {
+		try {
+			JSONObject feature = features.getJSONObject(position);
+			
+			// show details view
+			Intent intent = new Intent(getActivity(), DetailsActivity.class);
+			intent.putExtra(DetailsActivity.EXTRA_SHOW, feature.toString());
+			startActivity(intent);
+			
+		} catch(JSONException e){
+			System.out.println("========== Something weird happen on image click ==========");
+		}
 	}
 	
 	/**
