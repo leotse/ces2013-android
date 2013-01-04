@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -18,6 +19,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.digiflare.ces2013.DetailsActivity;
 import com.digiflare.ces2013.R;
 import com.digiflare.ces2013.data.APIClient;
 import com.digiflare.ces2013.ui.CarouselItem;
@@ -40,7 +42,7 @@ public class AssetListFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mContext = getActivity();		
+		mContext = getActivity();
 	}
 	
 
@@ -106,7 +108,27 @@ public class AssetListFragment extends Fragment {
 						}
 						
 						image = (SmartImageView) view.findViewById(imageId);
+						image.setTag(i);
 						image.setImageUrl(getThumbnailImage(feature, 150, 200));
+						image.setOnClickListener(new View.OnClickListener(){
+							@Override
+							public void onClick(View image) {
+								try {
+									int position = (Integer) image.getTag();
+									JSONObject feature = features.getJSONObject(position);
+									
+									// show details view
+									Intent intent = new Intent(getActivity(), DetailsActivity.class);
+									intent.putExtra(DetailsActivity.EXTRA_SHOW, feature.toString());
+									startActivity(intent);
+									
+								} catch(JSONException e){
+									System.out.println("========== Something weird happen on image click ==========");
+								} catch(ClassCastException e) {
+									System.out.println("========== Something weird happen on image click ==========");
+								}
+							}
+						});
 					}
 					
 					// and finally hide the indicator
@@ -154,14 +176,11 @@ public class AssetListFragment extends Fragment {
 	 *
 	 */
 	
-	public class CarouselAdapter extends PagerAdapter {
-		
-		private Context mContext;
+	private class CarouselAdapter extends PagerAdapter {
 		private JSONArray mData;
 
 		public CarouselAdapter(JSONArray data) {
 			super();
-			mContext = getActivity();
 			mData = data;
 		}
 
@@ -173,7 +192,7 @@ public class AssetListFragment extends Fragment {
 					JSONObject dataItem = mData.getJSONObject(position);
 					String title = dataItem.getJSONObject("title").getString("short");
 					String imageUrl = getCarouselImage(dataItem, 600, 800);
-					CarouselItem item = new CarouselItem(mContext, title, imageUrl);
+					CarouselItem item = new CarouselItem(getActivity(), title, imageUrl);
 				
 					// remove view from previous parent
 					if(null != item.getParent()) {

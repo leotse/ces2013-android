@@ -25,6 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.digiflare.ces2013.DetailsActivity"
+            android:label="@string/title_activity_details"
+            android:parentActivityName="com.digiflare.ces2013.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.digiflare.ces2013.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
