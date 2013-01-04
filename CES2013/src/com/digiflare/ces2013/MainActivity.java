@@ -3,9 +3,11 @@ package com.digiflare.ces2013;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Display;
 import android.view.Menu;
 
 import com.digiflare.ces2013.data.APIClient;
@@ -51,6 +53,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		
 		mActionBar.setIcon(R.drawable.none);
 		mActionBar.setDisplayShowTitleEnabled(false);
+		
+		// debug code
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		System.out.println(size);
 	}
 
 	@Override

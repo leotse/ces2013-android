@@ -40,13 +40,8 @@ public class DetailsActivity extends FragmentActivity implements ActionBar.TabLi
 		// Set up the action bar to show tabs.
 		mActionBar = getActionBar();
 		mActionBar.setIcon(R.drawable.none);
-		mActionBar.setDisplayHomeAsUpEnabled(true);		
-
-		// For each of the sections in the app, add a tab to the action bar.
-		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_featured).setTabListener(this));
-		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_movies).setTabListener(this));
-		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_tv).setTabListener(this));
+		mActionBar.setDisplayHomeAsUpEnabled(true);
+		mActionBar.setDisplayShowTitleEnabled(false);
 		
 		// Get show info from intent
 		Bundle extras = getIntent().getExtras();
@@ -82,8 +77,9 @@ public class DetailsActivity extends FragmentActivity implements ActionBar.TabLi
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_details, menu);
-		return true;
+		// getMenuInflater().inflate(R.menu.activity_details, menu);
+		// return true;
+		return false;
 	}
 
 	@Override

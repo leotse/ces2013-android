@@ -109,7 +109,7 @@ public class AssetListFragment extends Fragment {
 						
 						image = (SmartImageView) view.findViewById(imageId);
 						image.setTag(i);
-						image.setImageUrl(getThumbnailImage(feature, 150, 200));
+						image.setImageUrl(APIClient.getImage(feature, 0, 200));
 						image.setOnClickListener(new View.OnClickListener(){
 							@Override
 							public void onClick(View image) {
@@ -146,27 +146,10 @@ public class AssetListFragment extends Fragment {
 			public void handleFailureMessage(Throwable e, String body) {
 				// network error handling here
 				System.out.println("========== Network Error! ==========");
-				System.out.println(body);
+				e.printStackTrace();
 				System.out.println("========== End Network Error! ==========");
 			}
 		});
-	}
-
-	// helper method to get the proper thumbnail from a featured show
-	private String getThumbnailImage(JSONObject feature, int minRes, int maxRes) throws JSONException {
-		JSONArray boxArts = feature.getJSONArray("boxArt");
-		
-		// find the box art!
-		JSONObject boxArt;
-		int width;
-		for(int i = 0; i < boxArts.length(); i++) {
-			boxArt = boxArts.getJSONObject(i);
-			width = boxArt.getInt("width");
-			if(width >= minRes && width <= maxRes) {
-				return boxArt.getString("url");
-			}
-		}
-		return null;
 	}
 	
 	/**
@@ -191,7 +174,7 @@ public class AssetListFragment extends Fragment {
 				try {
 					JSONObject dataItem = mData.getJSONObject(position);
 					String title = dataItem.getJSONObject("title").getString("short");
-					String imageUrl = getCarouselImage(dataItem, 600, 800);
+					String imageUrl = APIClient.getImage(dataItem, 0, 800);
 					CarouselItem item = new CarouselItem(getActivity(), title, imageUrl);
 				
 					// remove view from previous parent
@@ -226,23 +209,6 @@ public class AssetListFragment extends Fragment {
 		@Override
 		public boolean isViewFromObject(View view, Object object) {
 			return view == object;
-		}
-		
-		// helpers
-		private String getCarouselImage(JSONObject item, int minRes, int maxRes) throws JSONException {
-			JSONArray boxarts = item.getJSONArray("boxArt");
-			JSONObject boxart;
-			int width;
-			String url;
-			for(int i = 0; i < boxarts.length(); i++) {
-				boxart = (JSONObject) boxarts.get(i);
-				width = boxart.getInt("width");
-				url = boxart.getString("url");
-				if(width >= minRes && width <= maxRes) {
-					return url;
-				}
-			}
-			return null;
 		}
 	}
 }
