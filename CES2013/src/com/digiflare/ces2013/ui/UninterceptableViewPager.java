@@ -36,7 +36,7 @@ public class UninterceptableViewPager extends ViewPager {
 				break;
 			case MotionEvent.ACTION_UP:
 				if(mDown && !mMoved) {
-					callOnClick();
+					performClick();
 				}
 				mDown = false;
 				mMoved = false;
