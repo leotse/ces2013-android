@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:id="@+id/detail_container"
     tools:context=".DetailsActivity"
     tools:ignore="MergeRootFrame" >
 

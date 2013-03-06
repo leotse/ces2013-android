@@ -23,7 +23,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	View mRoot;
+	View mRoot, mCustomBar;
 	ActionBar mActionBar;
 	AssetListFragment mFeatured, mMovies, mShows, mCurrent;
 
@@ -61,8 +61,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    mActionBar.setDisplayShowCustomEnabled(true);
 	    mActionBar.setDisplayShowHomeEnabled(true);
 	    mActionBar.setDisplayShowTitleEnabled(false);
-		View cView = getLayoutInflater().inflate(R.layout.title_bar, null);
-		mActionBar.setCustomView(cView);
+	    
+	    // custom view for action bar
+		mCustomBar = getLayoutInflater().inflate(R.layout.title_bar, null);
+		mActionBar.setCustomView(mCustomBar);
 		
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_featured).setTabListener(this));
@@ -80,9 +82,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			public void onSuccess(Drawable background) {
 				mRoot.setBackgroundDrawable(background);
 			}
-			
+		});
+		ImageService.getInstance(this).getLogo(new ImageDownloadedHandler() {
 			@Override
-			public void onError(Throwable e) {
+			public void onSuccess(Drawable logo) {
+				mCustomBar.findViewById(R.id.title_bar_image);
+				mCustomBar.setBackgroundDrawable(logo);
 			}
 		});
 	}

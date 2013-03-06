@@ -8,6 +8,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -23,6 +24,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.digiflare.ces2013.data.APIClient;
+import com.digiflare.ces2013.data.ImageDownloadedHandler;
+import com.digiflare.ces2013.data.ImageService;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.image.SmartImageView;
 
@@ -33,6 +36,7 @@ public class DetailsActivity extends FragmentActivity {
 	JSONObject mShow;
 	JSONArray mRelatedShows;
 	
+	View mRoot, mCustomBar;
 	ActionBar mActionBar;
 	LinearLayout mContent;
 	SmartImageView mImageView;
@@ -47,6 +51,7 @@ public class DetailsActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
+		mRoot = findViewById(R.id.detail_container);
 		
 		// ui elements
 		mContent = (LinearLayout) findViewById(R.id.details_content);
@@ -77,11 +82,29 @@ public class DetailsActivity extends FragmentActivity {
 	    mActionBar.setDisplayShowCustomEnabled(true);
 	    mActionBar.setDisplayShowHomeEnabled(true);
 	    mActionBar.setDisplayShowTitleEnabled(false);
-		View cView = getLayoutInflater().inflate(R.layout.title_bar, null);
-		mActionBar.setCustomView(cView);
+	    
+	    // set custom action bar
+		mCustomBar = getLayoutInflater().inflate(R.layout.title_bar, null);
+		mActionBar.setCustomView(mCustomBar);
+		
 		//Hide the default app icon on the action bar
 		View homeIcon = findViewById(android.R.id.home);
 		((View) homeIcon.getParent()).setVisibility(View.GONE);
+		
+		// download dynamic background + logo
+		ImageService.getInstance(this).getBackground(new ImageDownloadedHandler() {
+			@Override
+			public void onSuccess(Drawable background) {
+				mRoot.setBackgroundDrawable(background);
+			}
+		});
+		ImageService.getInstance(this).getLogo(new ImageDownloadedHandler() {
+			@Override
+			public void onSuccess(Drawable logo) {
+				mCustomBar.findViewById(R.id.title_bar_image);
+				mCustomBar.setBackgroundDrawable(logo);
+			}
+		});
 		
 		// Get show info from intent
 		Bundle extras = getIntent().getExtras();
