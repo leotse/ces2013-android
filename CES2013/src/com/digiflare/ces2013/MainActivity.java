@@ -3,14 +3,15 @@ package com.digiflare.ces2013;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
-import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.Display;
 import android.view.Menu;
+import android.view.View;
 
 import com.digiflare.ces2013.data.APIClient;
+import com.digiflare.ces2013.data.ImageDownloadedHandler;
 import com.digiflare.ces2013.data.ImageService;
 import com.digiflare.ces2013.fragments.AssetListFragment;
 
@@ -19,6 +20,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
+	View mRoot;
 	ActionBar mActionBar;
 	AssetListFragment mFeatured, mMovies, mShows, mCurrent;
 
@@ -26,6 +28,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		mRoot = findViewById(R.id.main_container);
 
 		// set up fragments
 		Bundle args;
@@ -59,7 +62,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		mActionBar.setDisplayShowTitleEnabled(false);
 		
 		// debug code
-		ImageService.getInstance().getBackground();
+		ImageService.getInstance(this).getBackground(new ImageDownloadedHandler() {
+			
+			@Override
+			public void onSuccess(Drawable background) {
+				mRoot.setBackgroundDrawable(background);
+			}
+			
+			@Override
+			public void onError(Throwable e) {
+			}
+		});
 	}
 
 	@Override
