@@ -1,12 +1,15 @@
 package com.digiflare.ces2013;
 
 import android.app.ActionBar;
+import android.app.ActionBar.LayoutParams;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 
@@ -53,15 +56,24 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		// Set up the action bar.
 		mActionBar = getActionBar();
+		
+		mActionBar.setNavigationMode(ActionBar.DISPLAY_SHOW_CUSTOM);
+	    mActionBar.setDisplayShowCustomEnabled(true);
+	    mActionBar.setDisplayShowHomeEnabled(true);
+	    mActionBar.setDisplayShowTitleEnabled(false);
+		View cView = getLayoutInflater().inflate(R.layout.title_bar, null);
+		mActionBar.setCustomView(cView);
+		
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_featured).setTabListener(this));
 		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_movies).setTabListener(this));
 		mActionBar.addTab(mActionBar.newTab().setText(R.string.title_section_tv).setTabListener(this));
 		
-		mActionBar.setIcon(R.drawable.none);
-		mActionBar.setDisplayShowTitleEnabled(false);
+		//Hide the default app icon on the action bar
+		View homeIcon = findViewById(android.R.id.home);
+		((View) homeIcon.getParent()).setVisibility(View.GONE);
 		
-		// debug code
+		// download dynamic background
 		ImageService.getInstance(this).getBackground(new ImageDownloadedHandler() {
 			
 			@Override

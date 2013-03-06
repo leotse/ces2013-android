@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,9 +73,15 @@ public class DetailsActivity extends FragmentActivity {
 
 		// Set up the action bar to show tabs.
 		mActionBar = getActionBar();
-		mActionBar.setIcon(R.drawable.none);
-		mActionBar.setDisplayHomeAsUpEnabled(true);
-		mActionBar.setDisplayShowTitleEnabled(false);
+		mActionBar.setNavigationMode(ActionBar.DISPLAY_SHOW_CUSTOM);
+	    mActionBar.setDisplayShowCustomEnabled(true);
+	    mActionBar.setDisplayShowHomeEnabled(true);
+	    mActionBar.setDisplayShowTitleEnabled(false);
+		View cView = getLayoutInflater().inflate(R.layout.title_bar, null);
+		mActionBar.setCustomView(cView);
+		//Hide the default app icon on the action bar
+		View homeIcon = findViewById(android.R.id.home);
+		((View) homeIcon.getParent()).setVisibility(View.GONE);
 		
 		// Get show info from intent
 		Bundle extras = getIntent().getExtras();
