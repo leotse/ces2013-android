@@ -36,5 +36,4 @@
                 android:value="com.digiflare.ces2013.MainActivity" />
         </activity>
     </application>
-
 </manifest>

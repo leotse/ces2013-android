@@ -11,6 +11,7 @@ import android.view.Display;
 import android.view.Menu;
 
 import com.digiflare.ces2013.data.APIClient;
+import com.digiflare.ces2013.data.ImageService;
 import com.digiflare.ces2013.fragments.AssetListFragment;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -32,16 +33,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		mFeatured = new AssetListFragment();
 		args = new Bundle();
 		args.putString(AssetListFragment.URL, APIClient.FEATURED_URL);
+		args.putString(AssetListFragment.TYPE, "Featured");
 		mFeatured.setArguments(args);
 
 		mMovies = new AssetListFragment();
 		args = new Bundle();
 		args.putString(AssetListFragment.URL, APIClient.MOVIES_URL);
+		args.putString(AssetListFragment.TYPE, "Movies");
 		mMovies.setArguments(args);
 
 		mShows = new AssetListFragment();
 		args = new Bundle();
 		args.putString(AssetListFragment.URL, APIClient.SHOWS_URL);
+		args.putString(AssetListFragment.TYPE, "Shows");
 		mShows.setArguments(args);
 
 		// Set up the action bar.
@@ -55,10 +59,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		mActionBar.setDisplayShowTitleEnabled(false);
 		
 		// debug code
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		System.out.println(size);
+		ImageService.getInstance().getBackground();
 	}
 
 	@Override

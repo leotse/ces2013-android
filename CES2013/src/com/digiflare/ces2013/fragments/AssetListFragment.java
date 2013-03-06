@@ -17,6 +17,7 @@ import android.view.ViewManager;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.digiflare.ces2013.DetailsActivity;
 import com.digiflare.ces2013.R;
@@ -28,6 +29,7 @@ import com.loopj.android.image.SmartImageView;
 public class AssetListFragment extends Fragment {
 	
 	public static final String URL = "url";
+	public static final String TYPE = "type";
 
 	Activity mContext;
 	LayoutInflater mLayoutInflater;
@@ -35,6 +37,7 @@ public class AssetListFragment extends Fragment {
 	GridView mGridView;
 	LinearLayout mContent;
 	ViewPager mViewPager;
+	TextView mType;
 	ProgressBar mProgress;
 	JSONArray features;
 	int mCurrentPage;
@@ -53,8 +56,15 @@ public class AssetListFragment extends Fragment {
 			mContainer = (View) inflater.inflate(R.layout.fragment_featured, null);
 			mContent = (LinearLayout) mContainer.findViewById(R.id.content_container);
 			mViewPager = (ViewPager) mContainer.findViewById(R.id.carousel_view_pager);
+			mType = (TextView) mContainer.findViewById(R.id.fragment_type);
 			mGridView = (GridView) mContainer.findViewById(R.id.featured_list);
 			mProgress = (ProgressBar) mContainer.findViewById(R.id.progress);
+			
+			// set view type name
+			String type = getArguments().getString(TYPE);
+			mType.setText(type);
+			
+			// populate dynamic data
 			populate();
 		}
 		return mContainer;
